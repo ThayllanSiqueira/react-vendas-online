@@ -13,9 +13,16 @@ export default [
     files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: typescriptParser,
+      parserOptions: {
+        // Garantir que o ESLint use o tsconfig correto
+        project: './tsconfig.app.json',
+        tsconfigRootDir: './',
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      },
       globals: {
         document: 'readonly', // Definindo document como uma variável global somente leitura
-        window: 'readonly', // Você pode adicionar outras variáveis globais conforme necessário
+        window: 'readonly', // Adicionando outras variáveis globais conforme necessário
       },
     },
     plugins: {
