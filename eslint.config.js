@@ -6,6 +6,7 @@ import prettier from 'eslint-config-prettier';
 import prettierPlugin from 'eslint-plugin-prettier';
 import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
@@ -21,8 +22,8 @@ export default [
         sourceType: 'module',
       },
       globals: {
-        document: 'readonly', // Definindo document como uma variável global somente leitura
-        window: 'readonly', // Adicionando outras variáveis globais conforme necessário
+        ...globals.browser,
+        ...globals.node,
       },
     },
     plugins: {
