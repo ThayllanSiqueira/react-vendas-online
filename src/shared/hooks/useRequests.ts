@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { NavigateFunction } from 'react-router-dom';
 
+import { FirstScreenRoutesEnum } from '../../modules/firstScreen/routes';
 import { AuthType } from '../../modules/login/types/AuthType';
 import { ERROR_INVALID_PASSWORD } from '../constants/errorsStatus';
 import { URL_AUTH } from '../constants/urls';
@@ -52,13 +54,13 @@ export const useRequests = () => {
     return returnData;
   };
 
-  const authRequest = async (body: unknown): Promise<void> => {
+  const authRequest = async (navigate: NavigateFunction, body: unknown): Promise<void> => {
     setLoading(true);
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
         setUser(result.user);
         setAuthorizationToken(result.accessToken);
-        location.href = '/';
+        navigate(FirstScreenRoutesEnum.FIRSTSCREEN);
       })
       .catch(() => {
         setNotification(ERROR_INVALID_PASSWORD, 'error');
