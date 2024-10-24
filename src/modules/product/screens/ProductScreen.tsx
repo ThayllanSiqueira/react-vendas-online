@@ -1,14 +1,19 @@
 import type { TableProps } from 'antd';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import Button from '../../../shared/components/buttons/button/Button';
+import Screen from '../../../shared/components/screen/Screen';
 import Table from '../../../shared/components/table/Table';
 import { URL_PRODUCT } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
+import { convertNumberToMoney } from '../../../shared/functions/money';
 import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { ProductType } from '../../../shared/types/ProductType';
 import CategoryColumn from '../components/CategoryColumn';
 import TooltipImage from '../components/TooltipImage';
+import { ProductRoutesEnum } from '../routes';
 
 const columns: TableProps<ProductType>['columns'] = [
   {
@@ -33,12 +38,14 @@ const columns: TableProps<ProductType>['columns'] = [
     title: 'Preço',
     dataIndex: 'price',
     key: 'price',
+    render: (_, product) => <a>{convertNumberToMoney(product.price)}</a>,
   },
 ];
 
 const ProductScreen = () => {
   const { products, setProducts } = useDataContext();
   const { request } = useRequests();
+  const navigate = useNavigate();
 
   useEffect(() => {
     request<ProductType[]>(URL_PRODUCT, MethodsEnum.GET, setProducts);
@@ -46,10 +53,28 @@ const ProductScreen = () => {
 
   const dataWithKeys = products.map((product) => ({
     ...product,
-    key: product.id, // Define a chave única usando o id do produto
+    key: product.id,
   }));
 
-  return <Table columns={columns} dataSource={dataWithKeys} />;
+  const handleOnClickInsert = () => {
+    navigate(ProductRoutesEnum.PRODUCT_INSERT);
+  };
+
+  return (
+    <Screen
+      listBreadcrumb={[
+        {
+          title: 'HOME',
+        },
+        {
+          title: 'PRODUTOS',
+        },
+      ]}
+    >
+      <Button onClick={handleOnClickInsert}>Inserir</Button>
+      <Table columns={columns} dataSource={dataWithKeys} />
+    </Screen>
+  );
 };
 
 export default ProductScreen;
