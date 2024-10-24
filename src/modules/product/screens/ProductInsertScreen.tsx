@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/input';
 import InputMoney from '../../../shared/components/inputs/inputMoney/inputMoney';
@@ -7,10 +5,7 @@ import Select from '../../../shared/components/inputs/select/Select';
 import Screen from '../../../shared/components/screen/Screen';
 import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
 import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
-import { URL_CATEGORY } from '../../../shared/constants/urls';
-import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
-import { useRequests } from '../../../shared/hooks/useRequests';
+import { useCategory } from '../../category/hooks/useCategory';
 import { useInsertProduct } from '../hooks/useInsertProduct';
 import { ProductRoutesEnum } from '../routes';
 import { ProductInsertContainer } from '../styles/productinsert.style';
@@ -25,14 +20,7 @@ const ProductInsert = () => {
     handleChangeSelect,
     handleOnClickCancel,
   } = useInsertProduct();
-  const { categories, setCategories } = useDataContext();
-  const { request } = useRequests();
-
-  useEffect(() => {
-    if (categories.length === 0) {
-      request(URL_CATEGORY, MethodsEnum.GET, setCategories);
-    }
-  }, []);
+  const { categories } = useCategory();
 
   const listBreadcrumb = [
     {
