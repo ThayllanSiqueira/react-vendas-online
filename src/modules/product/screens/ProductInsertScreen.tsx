@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/input';
+import InputMoney from '../../../shared/components/inputs/inputMoney/inputMoney';
 import Select from '../../../shared/components/inputs/select/Select';
 import Screen from '../../../shared/components/screen/Screen';
 import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
@@ -98,7 +99,7 @@ const ProductInsert = () => {
             title="Url Imagem"
             placeholder="Url Imagem"
           />
-          <Input
+          <InputMoney
             onChange={(event) => onChange(event, 'price', true)}
             value={product.price}
             margin="0 0 16px 0"
