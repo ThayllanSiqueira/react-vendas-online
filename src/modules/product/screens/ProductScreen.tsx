@@ -44,7 +44,12 @@ const ProductScreen = () => {
     request<ProductType[]>(URL_PRODUCT, MethodsEnum.GET, setProducts);
   }, []);
 
-  return <Table columns={columns} dataSource={products} />;
+  const dataWithKeys = products.map((product) => ({
+    ...product,
+    key: product.id, // Define a chave única usando o id do produto
+  }));
+
+  return <Table columns={columns} dataSource={dataWithKeys} />;
 };
 
 export default ProductScreen;
