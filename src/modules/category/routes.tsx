@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { RouteObject } from 'react-router-dom';
 
-// import CategoryInsert from './screens/CategoryInsertScreen';
+import CategoryInsert from './screens/CategoryInsertScreen';
 import CategoryScreen from './screens/CategoryScreens';
 
 export enum CategoryRoutesEnum {
@@ -14,8 +14,8 @@ export const categoryScreenRoutes: RouteObject[] = [
     path: CategoryRoutesEnum.CATEGORY,
     element: <CategoryScreen />,
   },
-  // {
-  //   path: categoryRoutesEnum.CATEGORY_INSERT,
-  //   element: <CategoryInsert />,
-  // },
+  {
+    path: CategoryRoutesEnum.CATEGORY_INSERT,
+    element: <CategoryInsert />,
+  },
 ];
