@@ -11,6 +11,7 @@ import globals from 'globals';
 export default [
   js.configs.recommended,
   {
+    ignores: ['babel.config.js'],
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: typescriptParser,
