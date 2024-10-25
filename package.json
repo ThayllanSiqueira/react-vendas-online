@@ -16,10 +16,13 @@
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
     "setupFilesAfterEnv": [
-      "<rootDir>/setup-tests.js"
+      "<rootDir>/setup-tests.ts"
     ],
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.{js,ts,jsx,tsx}"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/src/.*/__tests__/.*Enum\\.ts$"
     ]
   },
   "dependencies": {
