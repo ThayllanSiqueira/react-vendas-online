@@ -10,7 +10,7 @@ import { useInsertCategory } from '../hooks/useInsertCategory';
 import { CategoryRoutesEnum } from '../routes';
 
 const CategoryInsert = () => {
-  const { name, loading, handleOnChangeName, insertCategory, handleOnClickCancel } =
+  const { name, loading, disableButton, handleOnChangeName, insertCategory, handleOnClickCancel } =
     useInsertCategory();
   const listBreadcrumb = [
     {
@@ -42,7 +42,12 @@ const CategoryInsert = () => {
               </Button>
             </LimitedContainer>
             <LimitedContainer width={160}>
-              <Button onClick={insertCategory} loading={loading} type="primary">
+              <Button
+                disabled={disableButton}
+                onClick={insertCategory}
+                loading={loading}
+                type="primary"
+              >
                 Inserir Categoria
               </Button>
             </LimitedContainer>

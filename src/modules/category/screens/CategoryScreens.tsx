@@ -1,5 +1,4 @@
 import { Input, TableProps } from 'antd';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Screen from '../../../shared/components/screen/Screen';
@@ -8,7 +7,6 @@ import { LimitedContainer } from '../../../shared/components/styles/limited.styl
 import Table from '../../../shared/components/table/Table';
 import { CategoryType } from '../../../shared/types/CategoryType';
 import { useCategory } from '../hooks/useCategory';
-import { CategoryRoutesEnum } from '../routes';
 
 const { Search } = Input;
 
@@ -44,27 +42,13 @@ const listBreadcrumb = [
 ];
 
 const CategoryScreen = () => {
-  const { categories } = useCategory();
-  const navigate = useNavigate();
-
-  const dataWithKeys = categories.map((category) => ({
-    ...category,
-    key: category.id,
-  }));
-
-  const handleOnClickInsert = () => {
-    navigate(CategoryRoutesEnum.CATEGORY_INSERT);
-  };
-
-  const onSearch = (value: string) => {
-    console.log(value);
-  };
+  const { dataWithKeys, handleOnChangeSearch, handleOnClickInsert } = useCategory();
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
       <DisplayFlexJustifyBetween margin="0 0 16px 0">
         <LimitedContainer width={240}>
-          <Search placeholder="Buscar categoria" onSearch={onSearch} enterButton />
+          <Search placeholder="Buscar categoria" onSearch={handleOnChangeSearch} enterButton />
         </LimitedContainer>
         <LimitedContainer width={120}>
           <Button type="primary" onClick={handleOnClickInsert}>
