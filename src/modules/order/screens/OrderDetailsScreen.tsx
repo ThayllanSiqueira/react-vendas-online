@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import Screen from '../../../shared/components/screen/Screen';
 import { DisplayFlexJustifyCenter } from '../../../shared/components/styles/display.styled';
+import { convertNumberToMoney } from '../../../shared/functions/money';
+import ListOrderProduct from '../components/ListOrderProduct';
 import { useOrderDetail } from '../hooks/useOrderDetail';
 import { OrderRoutesEnum } from '../routes';
 
@@ -59,18 +61,18 @@ const OrderDetails = () => {
     {
       key: '1',
       label: 'Preço',
-      children: `${order.payment?.price}`,
+      children: `${convertNumberToMoney(order.payment?.price || 0)}`,
     },
     {
       key: '2',
       label: 'Desconto',
-      children: `${order.payment?.discount}`,
+      children: `${convertNumberToMoney(order.payment?.discount || 0)}`,
       span: 2,
     },
     {
       key: '3',
       label: 'Preço Final',
-      children: `${order.payment?.finalPrice}`,
+      children: `${convertNumberToMoney(order.payment?.finalPrice || 0)}`,
     },
     {
       key: '4',
@@ -88,49 +90,28 @@ const OrderDetails = () => {
   const addres: DescriptionsProps['items'] = [
     {
       key: '1',
-      label: 'Nome',
-      children: `${order.payment?.price}`,
+      label: 'Cidade',
+      children: `${order.address?.city?.name}`,
     },
     {
       key: '2',
-      label: 'Email',
-      children: 'root@root.com',
-      span: 2,
+      label: 'Estado',
+      children: `${order.address?.city?.state?.name}`,
     },
     {
       key: '3',
-      label: 'Telefone',
-      children: '61 994606467',
+      label: 'Complemento',
+      children: `${order.address?.complement}`,
     },
     {
       key: '4',
-      label: 'CPF',
-      children: '04103169117',
-      span: 2,
-    },
-  ];
-  const products: DescriptionsProps['items'] = [
-    {
-      key: '1',
-      label: 'Nome',
-      children: `${order.payment?.price}`,
+      label: 'Número',
+      children: `${order.address?.numberAddress}`,
     },
     {
-      key: '2',
-      label: 'Email',
-      children: 'root@root.com',
-      span: 2,
-    },
-    {
-      key: '3',
-      label: 'Telefone',
-      children: '61 994606467',
-    },
-    {
-      key: '4',
-      label: 'CPF',
-      children: '04103169117',
-      span: 2,
+      key: '5',
+      label: 'CEP',
+      children: `${order.address?.cep}`,
     },
   ];
 
@@ -142,7 +123,9 @@ const OrderDetails = () => {
       <Divider />
       <Descriptions title="Dados Enderço" bordered items={addres} />
       <Divider />
-      <Descriptions title="Produtos" bordered items={products} />
+      {order.ordersProduct && order.ordersProduct?.length > 0 && (
+        <ListOrderProduct ordersProduct={order.ordersProduct} />
+      )}
     </Screen>
   );
 };
