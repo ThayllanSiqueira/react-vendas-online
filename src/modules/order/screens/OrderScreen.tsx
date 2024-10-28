@@ -49,8 +49,8 @@ const OrderScreen = () => {
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
       <Table
-        onRow={() => ({
-          onClick: () => navigate(OrderRoutesEnum.ORDER_ID),
+        onRow={(record) => ({
+          onClick: () => navigate(`${OrderRoutesEnum.ORDER}/${record.id}`),
         })}
         columns={columns}
         dataSource={dataWithKeys}

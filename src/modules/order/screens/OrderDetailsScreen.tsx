@@ -1,178 +1,15 @@
-import { Descriptions, DescriptionsProps, Divider } from 'antd';
+import { Descriptions, DescriptionsProps, Divider, Spin } from 'antd';
+import { useParams } from 'react-router-dom';
 
 import Screen from '../../../shared/components/screen/Screen';
+import { DisplayFlexJustifyCenter } from '../../../shared/components/styles/display.styled';
+import { useOrderDetail } from '../hooks/useOrderDetail';
 import { OrderRoutesEnum } from '../routes';
 
-const user: DescriptionsProps['items'] = [
-  {
-    key: '1',
-    label: 'Nome',
-    children: 'Juliano',
-  },
-  {
-    key: '2',
-    label: 'Email',
-    children: 'root@root.com',
-    span: 2,
-  },
-  {
-    key: '3',
-    label: 'Telefone',
-    children: '61 994606467',
-  },
-  {
-    key: '4',
-    label: 'CPF',
-    children: '04103169117',
-    span: 2,
-  },
-];
-const payment: DescriptionsProps['items'] = [
-  {
-    key: '1',
-    label: 'Nome',
-    children: 'Juliano',
-  },
-  {
-    key: '2',
-    label: 'Email',
-    children: 'root@root.com',
-    span: 2,
-  },
-  {
-    key: '3',
-    label: 'Telefone',
-    children: '61 994606467',
-  },
-  {
-    key: '4',
-    label: 'CPF',
-    children: '04103169117',
-    span: 2,
-  },
-];
-const addres: DescriptionsProps['items'] = [
-  {
-    key: '1',
-    label: 'Nome',
-    children: 'Juliano',
-  },
-  {
-    key: '2',
-    label: 'Email',
-    children: 'root@root.com',
-    span: 2,
-  },
-  {
-    key: '3',
-    label: 'Telefone',
-    children: '61 994606467',
-  },
-  {
-    key: '4',
-    label: 'CPF',
-    children: '04103169117',
-    span: 2,
-  },
-];
-const products: DescriptionsProps['items'] = [
-  {
-    key: '1',
-    label: 'Nome',
-    children: 'Juliano',
-  },
-  {
-    key: '2',
-    label: 'Email',
-    children: 'root@root.com',
-    span: 2,
-  },
-  {
-    key: '3',
-    label: 'Telefone',
-    children: '61 994606467',
-  },
-  {
-    key: '4',
-    label: 'CPF',
-    children: '04103169117',
-    span: 2,
-  },
-];
-
-/* const items: DescriptionsProps['items'] = [
-  {
-    key: '1',
-    label: 'Nome',
-    children: 'Juliano',
-  },
-  {
-    key: '2',
-    label: 'Email',
-    children: 'Prepaid',
-    span: 2,
-  },
-  {
-    key: '3',
-    label: 'Telefone',
-    children: 'YES',
-  },
-  {
-    key: '4',
-    label: 'CPF',
-    children: '2018-04-24 18:00:00',
-    span: 2,
-  },
-  {
-    key: '5',
-    label: 'Usage Time',
-    children: '2019-04-24 18:00:00',
-    span: 2,
-  },
-  {
-    key: '6',
-    label: 'Status',
-    children: <Badge status="processing" text="Running" />,
-    span: 3,
-  },
-  {
-    key: '7',
-    label: 'Negotiated Amount',
-    children: '$80.00',
-  },
-  {
-    key: '8',
-    label: 'Discount',
-    children: '$20.00',
-  },
-  {
-    key: '9',
-    label: 'Official Receipts',
-    children: '$60.00',
-  },
-  {
-    key: '10',
-    label: 'Config Info',
-    children: (
-      <>
-        Data disk type: MongoDB
-        <br />
-        Database version: 3.4
-        <br />
-        Package: dds.mongo.mid
-        <br />
-        Storage space: 10 GB
-        <br />
-        Replication factor: 3
-        <br />
-        Region: East China 1
-        <br />
-      </>
-    ),
-  },
-]; */
-
 const OrderDetails = () => {
+  const { orderId } = useParams<{ orderId: string }>();
+  const { order, loading } = useOrderDetail(orderId);
+
   const listBreadcrumb = [
     {
       title: 'HOME',
@@ -185,6 +22,118 @@ const OrderDetails = () => {
       title: 'DETALHES',
     },
   ];
+
+  if (!order || loading) {
+    return (
+      <DisplayFlexJustifyCenter>
+        <Spin size="large" />
+      </DisplayFlexJustifyCenter>
+    );
+  }
+
+  const user: DescriptionsProps['items'] = [
+    {
+      key: '1',
+      label: 'Nome',
+      children: `${order.user?.name}`,
+    },
+    {
+      key: '2',
+      label: 'Email',
+      children: `${order.user?.email}`,
+      span: 2,
+    },
+    {
+      key: '3',
+      label: 'Telefone',
+      children: `${order.user?.phone}`,
+    },
+    {
+      key: '4',
+      label: 'CPF',
+      children: `${order.user?.name}`,
+      span: 2,
+    },
+  ];
+  const payment: DescriptionsProps['items'] = [
+    {
+      key: '1',
+      label: 'Preço',
+      children: `${order.payment?.price}`,
+    },
+    {
+      key: '2',
+      label: 'Desconto',
+      children: `${order.payment?.discount}`,
+      span: 2,
+    },
+    {
+      key: '3',
+      label: 'Preço Final',
+      children: `${order.payment?.finalPrice}`,
+    },
+    {
+      key: '4',
+      label: 'Tipo de Pagamento',
+      children: `${order.payment?.type}`,
+      span: 2,
+    },
+    {
+      key: '4',
+      label: 'Status',
+      children: `${order.payment?.paymentStatus?.name}`,
+      span: 2,
+    },
+  ];
+  const addres: DescriptionsProps['items'] = [
+    {
+      key: '1',
+      label: 'Nome',
+      children: `${order.payment?.price}`,
+    },
+    {
+      key: '2',
+      label: 'Email',
+      children: 'root@root.com',
+      span: 2,
+    },
+    {
+      key: '3',
+      label: 'Telefone',
+      children: '61 994606467',
+    },
+    {
+      key: '4',
+      label: 'CPF',
+      children: '04103169117',
+      span: 2,
+    },
+  ];
+  const products: DescriptionsProps['items'] = [
+    {
+      key: '1',
+      label: 'Nome',
+      children: `${order.payment?.price}`,
+    },
+    {
+      key: '2',
+      label: 'Email',
+      children: 'root@root.com',
+      span: 2,
+    },
+    {
+      key: '3',
+      label: 'Telefone',
+      children: '61 994606467',
+    },
+    {
+      key: '4',
+      label: 'CPF',
+      children: '04103169117',
+      span: 2,
+    },
+  ];
+
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
       <Descriptions title="Dados usuário" bordered items={user} />
