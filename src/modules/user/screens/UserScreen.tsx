@@ -1,5 +1,6 @@
 import { Input, Spin, TableProps } from 'antd';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
 import Screen from '../../../shared/components/screen/Screen';
@@ -15,6 +16,7 @@ import { insertMaskInCpf } from '../../../shared/functions/cpf';
 import { insertMaskInPhone } from '../../../shared/functions/phone';
 import { UserType } from '../../login/types/UserType';
 import { useUser } from '../hooks/useUser';
+import { UserRoutesEnum } from '../routes';
 
 const { Search } = Input;
 
@@ -62,8 +64,13 @@ const listBreadcrumb = [
 
 const UserScreen = () => {
   const { dataWithKeys, loading, handleOnChangeSearch } = useUser();
+  const navigate = useNavigate();
 
   const userToken = useMemo(() => getUserInfoByToken(), []);
+
+  const handleGoToInsertAdmin = () => {
+    navigate(UserRoutesEnum.USER_INSERT);
+  };
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
@@ -81,7 +88,9 @@ const UserScreen = () => {
             </LimitedContainer>
             <LimitedContainer width={180}>
               {userToken?.typeUser === UserTypeEnum.Root && (
-                <Button type="primary">Inserir Admin</Button>
+                <Button type="primary" onClick={handleGoToInsertAdmin}>
+                  Inserir Admin
+                </Button>
               )}
             </LimitedContainer>
           </DisplayFlexJustifyBetween>
