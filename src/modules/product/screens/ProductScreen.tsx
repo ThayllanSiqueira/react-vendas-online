@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Input, type TableProps } from 'antd';
+import { Input, Modal, type TableProps } from 'antd';
 import { useMemo } from 'react';
 
 import Button from '../../../shared/components/buttons/button/Button';
@@ -28,8 +28,16 @@ const listBreadcrumb = [
 ];
 
 const ProductScreen = () => {
-  const { dataWithKeys, handleOnClickInsert, onSearch, handleDeleteProduct, handleEditProduct } =
-    useProduct();
+  const {
+    dataWithKeys,
+    openModalDelete,
+    handleOnClickInsert,
+    onSearch,
+    handleDeleteProduct,
+    handleEditProduct,
+    handleCloseModalDelete,
+    handleOpenModalDelete,
+  } = useProduct();
   const columns: TableProps<ProductType>['columns'] = useMemo(
     () => [
       {
@@ -74,7 +82,7 @@ const ProductScreen = () => {
               </Button>
               <Button
                 danger
-                onClick={() => handleDeleteProduct(product.id)}
+                onClick={() => handleOpenModalDelete(product.id)}
                 icon={<DeleteOutlined />}
               >
                 Deletar
@@ -89,6 +97,16 @@ const ProductScreen = () => {
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
+      <Modal
+        title="Atenção"
+        open={openModalDelete}
+        onOk={() => handleDeleteProduct()}
+        onCancel={handleCloseModalDelete}
+        okText="Sim"
+        cancelText="Cancelar"
+      >
+        <p>Tem certeza que deseja excluir este produto?</p>
+      </Modal>
       <DisplayFlexJustifyBetween margin="0 0 16px 0">
         <LimitedContainer width={240}>
           <Search placeholder="Buscar produto" onSearch={onSearch} enterButton />
