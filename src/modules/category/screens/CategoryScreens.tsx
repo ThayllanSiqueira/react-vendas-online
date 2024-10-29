@@ -32,6 +32,7 @@ const CategoryScreen = () => {
     handleOpenModalDelete,
     handleCloseModalDelete,
     handleConfirmDeleteCategory,
+    handlegoToEditCategory,
   } = useCategory();
 
   const columns: TableProps<CategoryType>['columns'] = [
@@ -63,7 +64,7 @@ const CategoryScreen = () => {
         <LimitedContainer width={120}>
           <DisplayFlex>
             <LimitedContainer margin="0 16px 0 0" width={74}>
-              <Button onClick={() => null} icon={<EditOutlined />}>
+              <Button onClick={() => handlegoToEditCategory(category.id)} icon={<EditOutlined />}>
                 Editar
               </Button>
             </LimitedContainer>
