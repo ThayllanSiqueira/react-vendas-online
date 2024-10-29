@@ -1,8 +1,9 @@
-import { Input, Spin, TableProps } from 'antd';
+import { Input, TableProps } from 'antd';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/Button';
+import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import {
   DisplayFlexJustifyBetween,
@@ -76,7 +77,7 @@ const UserScreen = () => {
     <Screen listBreadcrumb={listBreadcrumb}>
       {loading && (
         <DisplayFlexJustifyCenter>
-          <Spin size="large" />
+          <Loading size="large" />
         </DisplayFlexJustifyCenter>
       )}
 

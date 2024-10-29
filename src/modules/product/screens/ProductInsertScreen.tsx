@@ -4,6 +4,7 @@ import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/input';
 import InputMoney from '../../../shared/components/inputs/inputMoney/inputMoney';
 import Select from '../../../shared/components/inputs/select/Select';
+import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import {
   DisplayFlex,
@@ -21,6 +22,7 @@ const ProductInsert = () => {
   const { productId } = useParams<{ productId: string }>();
   const {
     loading,
+    loadingProduct,
     disableButton,
     product,
     isEdit,
@@ -46,8 +48,10 @@ const ProductInsert = () => {
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
-      {loading ? (
-        <div>Carregando</div>
+      {loadingProduct ? (
+        <DisplayFlexJustifyCenter>
+          <Loading size="large" />
+        </DisplayFlexJustifyCenter>
       ) : (
         <DisplayFlexJustifyCenter data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_CONTAINER}>
           <LimitedContainer width={400}>

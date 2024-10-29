@@ -1,6 +1,7 @@
-import { Descriptions, DescriptionsProps, Divider, Spin } from 'antd';
+import { Descriptions, DescriptionsProps, Divider } from 'antd';
 import { useParams } from 'react-router-dom';
 
+import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import { DisplayFlexJustifyCenter } from '../../../shared/components/styles/display.styled';
 import { insertMaskInCEP } from '../../../shared/functions/address';
@@ -31,7 +32,7 @@ const OrderDetails = () => {
   if (!order || loading) {
     return (
       <DisplayFlexJustifyCenter>
-        <Spin size="large" />
+        <Loading size="large" />
       </DisplayFlexJustifyCenter>
     );
   }
