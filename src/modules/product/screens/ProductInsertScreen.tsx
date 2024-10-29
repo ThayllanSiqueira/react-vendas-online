@@ -4,6 +4,7 @@ import InputMoney from '../../../shared/components/inputs/inputMoney/inputMoney'
 import Select from '../../../shared/components/inputs/select/Select';
 import Screen from '../../../shared/components/screen/Screen';
 import {
+  DisplayFlex,
   DisplayFlexJustifyCenter,
   DisplayFlexJustifyRight,
 } from '../../../shared/components/styles/display.styled';
@@ -24,7 +25,7 @@ const ProductInsert = () => {
     handleChangeSelect,
     handleOnClickCancel,
   } = useInsertProduct();
-  const { categories } = useCategory();
+  const { dataWithKeys } = useCategory();
 
   const listBreadcrumb = [
     {
@@ -70,12 +71,56 @@ const ProductInsert = () => {
           <Select
             data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_SELECT}
             title="Categoria"
-            margin="0 0 32px 0"
+            margin="0 0 16px 0"
             onChange={handleChangeSelect}
-            options={categories.map((category: CategoryType) => ({
+            options={dataWithKeys.map((category: CategoryType) => ({
               value: `${category.id}`,
               label: `${category.name}`,
             }))}
+          />
+          <DisplayFlex>
+            <InputMoney
+              addonBefore="Kg"
+              onChange={(event) => onChangeInput(event, 'weight', true)}
+              value={product.weight}
+              margin="0 16px 16px 0"
+              title="Peso"
+              placeholder="Peso"
+            />
+            <InputMoney
+              addonBefore="cm"
+              onChange={(event) => onChangeInput(event, 'length', true)}
+              value={product.length}
+              margin="0 0 16px 0"
+              title="Comprimento"
+              placeholder="Comprimento"
+            />
+          </DisplayFlex>
+          <DisplayFlex>
+            <InputMoney
+              addonBefore="cm"
+              onChange={(event) => onChangeInput(event, 'height', true)}
+              value={product.height}
+              margin="0 16px 16px 0"
+              title="Altura"
+              placeholder="Altura"
+            />
+            <InputMoney
+              addonBefore="cm"
+              onChange={(event) => onChangeInput(event, 'width', true)}
+              value={product.width}
+              margin="0 0 16px 0"
+              title="Largura"
+              placeholder="Largura"
+            />
+          </DisplayFlex>
+          <InputMoney
+            addonBefore="cm"
+            onChange={(event) => onChangeInput(event, 'diameter', true)}
+            value={product.diameter}
+            margin="0 0 32px 0"
+            title="Diâmetro"
+            placeholder="Diâmetro"
           />
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0 8px" width={120}>
