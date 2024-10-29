@@ -8,6 +8,7 @@ import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useC
 import { CategoryRoutesEnum } from '../routes';
 
 export const useCategory = () => {
+  const [categoryIdDelete, setCategoryIdDelete] = useState<number | undefined>();
   const { categories, setCategories } = useCategoryReducer();
   const [categoriesFiltered, setCategoriesFiltered] = useState(categories);
   const { request } = useRequests();
@@ -44,9 +45,25 @@ export const useCategory = () => {
     navigate(CategoryRoutesEnum.CATEGORY_INSERT);
   };
 
+  const handleOpenModalDelete = (categoryId: number) => {
+    setCategoryIdDelete(categoryId);
+  };
+
+  const handleCloseModalDelete = () => {
+    setCategoryIdDelete(undefined);
+  };
+
+  const handleConfirmDeleteCategory = () => {
+    setCategoryIdDelete(undefined);
+  };
+
   return {
     dataWithKeys,
+    openModalDelete: !!categoryIdDelete,
     handleOnChangeSearch,
     handleOnClickInsert,
+    handleOpenModalDelete,
+    handleCloseModalDelete,
+    handleConfirmDeleteCategory,
   };
 };
