@@ -24,7 +24,8 @@ const listBreadcrumb = [
 ];
 
 const ProductScreen = () => {
-  const { dataWithKeys, handleOnClickInsert, onSearch, handleDeleteProduct } = useProduct();
+  const { dataWithKeys, handleOnClickInsert, onSearch, handleDeleteProduct, handleEditProduct } =
+    useProduct();
   const columns: TableProps<ProductType>['columns'] = useMemo(
     () => [
       {
@@ -56,7 +57,12 @@ const ProductScreen = () => {
         title: 'Action',
         dataIndex: '',
         key: 'x',
-        render: (_, product) => <a onClick={() => handleDeleteProduct(product.id)}>Deletar</a>,
+        render: (_, product) => (
+          <>
+            <a onClick={() => handleEditProduct(product.id)}>Editar</a>
+            <a onClick={() => handleDeleteProduct(product.id)}>Deletar</a>
+          </>
+        ),
       },
     ],
     [],

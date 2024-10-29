@@ -7,6 +7,7 @@ import ProductScreen from './screens/ProductScreen';
 export enum ProductRoutesEnum {
   PRODUCT = '/product',
   PRODUCT_INSERT = '/product/insert',
+  PRODUCT_EDIT = '/product/:productId',
 }
 
 export const productScreenRoutes: RouteObject[] = [
@@ -16,6 +17,10 @@ export const productScreenRoutes: RouteObject[] = [
   },
   {
     path: ProductRoutesEnum.PRODUCT_INSERT,
+    element: <ProductInsert />,
+  },
+  {
+    path: ProductRoutesEnum.PRODUCT_EDIT,
     element: <ProductInsert />,
   },
 ];

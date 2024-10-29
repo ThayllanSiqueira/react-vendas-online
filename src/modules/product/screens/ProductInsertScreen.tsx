@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import Button from '../../../shared/components/buttons/button/Button';
 import Input from '../../../shared/components/inputs/input/input';
 import InputMoney from '../../../shared/components/inputs/inputMoney/inputMoney';
@@ -16,6 +18,7 @@ import { ProductRoutesEnum } from '../routes';
 import { ProductInsertTestIdEnum } from './__tests__/ProductInsertTestIdEnum';
 
 const ProductInsert = () => {
+  const { productId } = useParams<{ productId: string }>();
   const {
     loading,
     disableButton,
@@ -24,7 +27,7 @@ const ProductInsert = () => {
     onChangeInput,
     handleChangeSelect,
     handleOnClickCancel,
-  } = useInsertProduct();
+  } = useInsertProduct(productId);
   const { dataWithKeys } = useCategory();
 
   const listBreadcrumb = [
