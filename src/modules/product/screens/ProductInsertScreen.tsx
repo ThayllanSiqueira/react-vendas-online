@@ -23,6 +23,7 @@ const ProductInsert = () => {
     loading,
     disableButton,
     product,
+    isEdit,
     handleInsertProduct,
     onChangeInput,
     handleChangeSelect,
@@ -45,110 +46,115 @@ const ProductInsert = () => {
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
-      <DisplayFlexJustifyCenter data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_CONTAINER}>
-        <LimitedContainer width={400}>
-          <Input
-            data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_NAME}
-            onChange={(event) => onChangeInput(event, 'name')}
-            value={product.name}
-            margin="0 0 16px 0"
-            title="Nome"
-            placeholder="Nome"
-          />
-          <Input
-            data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_IMAGE}
-            onChange={(event) => onChangeInput(event, 'image')}
-            value={product.image}
-            margin="0 0 16px 0"
-            title="Url Imagem"
-            placeholder="Url Imagem"
-          />
-          <InputMoney
-            data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_PRICE}
-            onChange={(event) => onChangeInput(event, 'price', true)}
-            value={product.price}
-            margin="0 0 16px 0"
-            title="Preço"
-            placeholder="Preço"
-          />
-          <Select
-            data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_SELECT}
-            title="Categoria"
-            margin="0 0 16px 0"
-            onChange={handleChangeSelect}
-            options={dataWithKeys.map((category: CategoryType) => ({
-              value: `${category.id}`,
-              label: `${category.name}`,
-            }))}
-          />
-          <DisplayFlex>
-            <InputMoney
-              addonBefore="Kg"
-              onChange={(event) => onChangeInput(event, 'weight', true)}
-              value={product.weight}
-              margin="0 16px 16px 0"
-              title="Peso"
-              placeholder="Peso"
-            />
-            <InputMoney
-              addonBefore="cm"
-              onChange={(event) => onChangeInput(event, 'length', true)}
-              value={product.length}
+      {loading ? (
+        <div>Carregando</div>
+      ) : (
+        <DisplayFlexJustifyCenter data-testid={ProductInsertTestIdEnum.PRODUCT_INSERT_CONTAINER}>
+          <LimitedContainer width={400}>
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_NAME}
+              onChange={(event) => onChangeInput(event, 'name')}
+              value={product.name}
               margin="0 0 16px 0"
-              title="Comprimento"
-              placeholder="Comprimento"
+              title="Nome"
+              placeholder="Nome"
             />
-          </DisplayFlex>
-          <DisplayFlex>
-            <InputMoney
-              addonBefore="cm"
-              onChange={(event) => onChangeInput(event, 'height', true)}
-              value={product.height}
-              margin="0 16px 16px 0"
-              title="Altura"
-              placeholder="Altura"
-            />
-            <InputMoney
-              addonBefore="cm"
-              onChange={(event) => onChangeInput(event, 'width', true)}
-              value={product.width}
+            <Input
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_IMAGE}
+              onChange={(event) => onChangeInput(event, 'image')}
+              value={product.image}
               margin="0 0 16px 0"
-              title="Largura"
-              placeholder="Largura"
+              title="Url Imagem"
+              placeholder="Url Imagem"
             />
-          </DisplayFlex>
-          <InputMoney
-            addonBefore="cm"
-            onChange={(event) => onChangeInput(event, 'diameter', true)}
-            value={product.diameter}
-            margin="0 0 32px 0"
-            title="Diâmetro"
-            placeholder="Diâmetro"
-          />
-          <DisplayFlexJustifyRight>
-            <LimitedContainer margin="0 8px" width={120}>
-              <Button
-                data-testid={ProductInsertTestIdEnum.PRODUCT_BUTTON_CANCEL}
-                danger
-                onClick={handleOnClickCancel}
-              >
-                Cancelar
-              </Button>
-            </LimitedContainer>
-            <LimitedContainer width={120}>
-              <Button
-                data-testid={ProductInsertTestIdEnum.PRODUCT_BUTTON_INSERT}
-                loading={loading}
-                disabled={disableButton}
-                onClick={handleInsertProduct}
-                type="primary"
-              >
-                Inserir Produto
-              </Button>
-            </LimitedContainer>
-          </DisplayFlexJustifyRight>
-        </LimitedContainer>
-      </DisplayFlexJustifyCenter>
+            <InputMoney
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_PRICE}
+              onChange={(event) => onChangeInput(event, 'price', true)}
+              value={product.price}
+              margin="0 0 16px 0"
+              title="Preço"
+              placeholder="Preço"
+            />
+            <Select
+              data-testid={ProductInsertTestIdEnum.PRODUCT_INPUT_SELECT}
+              title="Categoria"
+              margin="0 0 16px 0"
+              onChange={handleChangeSelect}
+              defaultValue={`${product.categoryId || ''}`}
+              options={dataWithKeys.map((category: CategoryType) => ({
+                value: `${category.id}`,
+                label: `${category.name}`,
+              }))}
+            />
+            <DisplayFlex>
+              <InputMoney
+                addonBefore="Kg"
+                onChange={(event) => onChangeInput(event, 'weight', true)}
+                value={product.weight}
+                margin="0 16px 16px 0"
+                title="Peso"
+                placeholder="Peso"
+              />
+              <InputMoney
+                addonBefore="cm"
+                onChange={(event) => onChangeInput(event, 'length', true)}
+                value={product.length}
+                margin="0 0 16px 0"
+                title="Comprimento"
+                placeholder="Comprimento"
+              />
+            </DisplayFlex>
+            <DisplayFlex>
+              <InputMoney
+                addonBefore="cm"
+                onChange={(event) => onChangeInput(event, 'height', true)}
+                value={product.height}
+                margin="0 16px 16px 0"
+                title="Altura"
+                placeholder="Altura"
+              />
+              <InputMoney
+                addonBefore="cm"
+                onChange={(event) => onChangeInput(event, 'width', true)}
+                value={product.width}
+                margin="0 0 16px 0"
+                title="Largura"
+                placeholder="Largura"
+              />
+            </DisplayFlex>
+            <InputMoney
+              addonBefore="cm"
+              onChange={(event) => onChangeInput(event, 'diameter', true)}
+              value={product.diameter}
+              margin="0 0 32px 0"
+              title="Diâmetro"
+              placeholder="Diâmetro"
+            />
+            <DisplayFlexJustifyRight>
+              <LimitedContainer margin="0 8px" width={120}>
+                <Button
+                  data-testid={ProductInsertTestIdEnum.PRODUCT_BUTTON_CANCEL}
+                  danger
+                  onClick={handleOnClickCancel}
+                >
+                  Cancelar
+                </Button>
+              </LimitedContainer>
+              <LimitedContainer width={120}>
+                <Button
+                  data-testid={ProductInsertTestIdEnum.PRODUCT_BUTTON_INSERT}
+                  loading={loading}
+                  disabled={disableButton}
+                  onClick={handleInsertProduct}
+                  type="primary"
+                >
+                  {isEdit ? 'Salvar' : 'Inserir Produto'}
+                </Button>
+              </LimitedContainer>
+            </DisplayFlexJustifyRight>
+          </LimitedContainer>
+        </DisplayFlexJustifyCenter>
+      )}
     </Screen>
   );
 };
