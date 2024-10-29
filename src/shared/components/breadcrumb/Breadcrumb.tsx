@@ -1,6 +1,8 @@
 import { Breadcrumb as BreadcrumbAntd } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
+import { BreadcrumbTestEnum } from './__tests__/breadcrumbTestIdEnum';
+
 export interface ListBreadcrumbProps {
   title: string;
   navigateTo?: string;
@@ -18,6 +20,7 @@ const Breadcrumb = ({ listBreadcrumb = [] }: BreadcrumbProps) => {
 
   return (
     <BreadcrumbAntd
+      data-testid={BreadcrumbTestEnum.CONTAINER}
       items={listBreadcrumb.map((breadcrumb) => {
         if (breadcrumb.navigateTo) {
           return {
