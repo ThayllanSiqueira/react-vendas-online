@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { CategoryRoutesEnum } from '../../../modules/category/routes';
 import { OrderRoutesEnum } from '../../../modules/order/routes';
 import { ProductRoutesEnum } from '../../../modules/product/routes';
+import { UserRoutesEnum } from '../../../modules/user/routes';
 import { ContainerLogoMenu, ContainerMenu, LogoMenu, NameCompany } from './menu.style';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -71,6 +72,7 @@ const Menu = () => {
       key: 'user',
       label: 'Clientes',
       icon: <UserOutlined />,
+      onClick: () => navigate(UserRoutesEnum.USER),
     },
   ];
 
