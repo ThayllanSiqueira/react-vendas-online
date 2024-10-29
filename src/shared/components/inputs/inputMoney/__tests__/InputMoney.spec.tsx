@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 
 import InputMoney from '../inputMoney';
-import { InputMoneyTestId } from './inputFMoneyEnum';
+import { InputMoneyTestId } from './inputMoneyEnum';
 
 describe('test InputMoney', () => {
   it('should render', () => {
